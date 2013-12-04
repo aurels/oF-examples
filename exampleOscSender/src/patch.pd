@@ -1,0 +1,4 @@
+#N canvas 586 174 450 300 10;
+#X obj 102 41 dumpOSC 12345;
+#X obj 112 105;
+#X obj 89 110 p;
