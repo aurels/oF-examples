@@ -9,6 +9,8 @@ class Flock {
     void initPosition(int x, int y);
     void updatePosition(int stepRange);
     void draw(void);
+    void setBoundingBox(int xMin, int xMax, int yMin, int yMax);
+    void setBoxExit(int oMin, int oMax);
     
   protected:
     
@@ -17,5 +19,11 @@ class Flock {
     
     double getGaussian(double mean, double variance);
 
+    int mXMin, mXMax;
+    int mYMin, mYMax;
+    
+    int mOMin, mOMax;
+    
+    bool mFoundExit;
 };
 

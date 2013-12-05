@@ -4,6 +4,7 @@ void Flock::initPosition(int x, int y) {
     mPosition.x = x;
     mPosition.y = y;
     mMoveAngle  = ofRandom(0.0, 2*PI);
+    mFoundExit  = false;
 }
 
 void Flock::updatePosition(int stepRange) {
@@ -21,11 +22,32 @@ void Flock::updatePosition(int stepRange) {
     
     mPosition.x += xInc;
     mPosition.y += yInc;
+    
+    if((mPosition.y < mYMin && mPosition.x > mOMin && mPosition.x < mOMax) || mFoundExit) {
+        mFoundExit = true;
+    } else {
+        if(mPosition.x < mXMin) mPosition.x = mXMin;
+        if(mPosition.x > mXMax) mPosition.x = mXMax;
+        if(mPosition.y < mYMin) mPosition.y = mYMin;
+        if(mPosition.y > mYMax) mPosition.y = mYMax;
+    }
+}
+
+void Flock::setBoundingBox(int xMin, int xMax, int yMin, int yMax) {
+    mXMin = xMin;
+    mXMax = xMax;
+    mYMin = yMin;
+    mYMax = yMax;
+}
+
+void Flock::setBoxExit(int oMin, int oMax) {
+    mOMin = oMin;
+    mOMax = oMax;
 }
 
 void Flock::draw(void){
     ofSetColor(255, 30, 30);
-    ofCircle(mPosition, 2);
+    ofCircle(mPosition, 1);
 }
 
 double Flock::getGaussian(double mean, double variance) {

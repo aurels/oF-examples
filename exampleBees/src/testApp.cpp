@@ -5,10 +5,15 @@ void testApp::setup(){
     ofEnableAntiAliasing();
     ofEnableAlphaBlending();
     ofBackground(255, 255, 255);
-    flocks.resize(1000);
+    flocks.resize(2000);
     
     for(int i=0; i<flocks.size(); i ++){
         flocks[i].initPosition(ofGetWidth() / 2, ofGetHeight() / 2);
+        flocks[i].setBoundingBox(
+          ofGetWidth()  / 2 - 200, ofGetWidth()  / 2 + 200,
+          ofGetHeight() / 2 - 200, ofGetHeight() / 2 + 200
+        );
+        flocks[i].setBoxExit(ofGetWidth() / 2 - 20, ofGetWidth() / 2 + 20);
     }
 }
 
@@ -21,6 +26,9 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofSetColor(0, 0, 0);
+    ofRect(ofGetWidth() / 2 - 200, ofGetHeight() / 2 - 200, 400, 400);
+    
     for(int i=0; i<flocks.size(); i ++){
         flocks[i].draw();
     }
