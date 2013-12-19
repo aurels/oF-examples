@@ -47,7 +47,7 @@ void Flock::setBoxExit(int oMin, int oMax) {
 
 void Flock::draw(void){
     ofSetColor(255, 30, 30);
-    ofCircle(mPosition, 1);
+    ofCircle(mPosition, 5);
 }
 
 double Flock::getGaussian(double mean, double variance) {

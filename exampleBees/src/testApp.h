@@ -4,13 +4,16 @@
 
 #include "ofMain.h"
 #include "flock.h"
+#include "updateThread.h"
 
 class testApp : public ofBaseApp {
     
 	public:
+    
 		void setup();
 		void update();
 		void draw();
+        void exit();
 		
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -22,5 +25,6 @@ class testApp : public ofBaseApp {
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        vector<Flock> flocks;
+        vector<Flock> *flocks;
+        UpdateThread updateThread;
 };

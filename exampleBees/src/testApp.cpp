@@ -2,26 +2,34 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
+    ofSetFrameRate(30);
     ofEnableAntiAliasing();
     ofEnableAlphaBlending();
     ofBackground(255, 255, 255);
-    flocks.resize(2000);
     
-    for(int i=0; i<flocks.size(); i ++){
-        flocks[i].initPosition(ofGetWidth() / 2, ofGetHeight() / 2);
-        flocks[i].setBoundingBox(
+    flocks = new vector<Flock>;
+    updateThread.setFlocks(flocks);
+    
+    flocks->resize(200);
+    
+    for(int i=0; i<flocks->size(); i ++){
+        (*flocks)[i].initPosition(ofGetWidth() / 2, ofGetHeight() / 2);
+        (*flocks)[i].setBoundingBox(
           ofGetWidth()  / 2 - 200, ofGetWidth()  / 2 + 200,
           ofGetHeight() / 2 - 200, ofGetHeight() / 2 + 200
         );
-        flocks[i].setBoxExit(ofGetWidth() / 2 - 20, ofGetWidth() / 2 + 20);
+        (*flocks)[i].setBoxExit(ofGetWidth() / 2 - 20, ofGetWidth() / 2 + 20);
     }
 }
 
 //--------------------------------------------------------------
+void testApp::exit(void){
+    delete flocks;
+}
+
+//--------------------------------------------------------------
 void testApp::update(){
-    for(int i=0; i<flocks.size(); i ++){
-        flocks[i].updatePosition(5);
-    }
+    
 }
 
 //--------------------------------------------------------------
@@ -29,14 +37,24 @@ void testApp::draw(){
     ofSetColor(0, 0, 0);
     ofRect(ofGetWidth() / 2 - 200, ofGetHeight() / 2 - 200, 400, 400);
     
-    for(int i=0; i<flocks.size(); i ++){
-        flocks[i].draw();
+    for(int i=0; i<flocks->size(); i ++){
+        (*flocks)[i].draw();
     }
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
-
+    if(key == 'p'){
+        sleep(5);
+    }
+    
+    if(key == 't'){
+        updateThread.startThread();
+    }
+    
+    if(key == 'y'){
+        updateThread.stopThread();
+    }
 }
 
 //--------------------------------------------------------------
